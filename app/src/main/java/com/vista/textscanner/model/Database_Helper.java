@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Database_Helper extends SQLiteOpenHelper implements SettingsPresenter {
     private static final String dbname = "textscanner.db";
-    private static final int version = 2;
+    private static final int version = 1;
     private static final String tablename = "recognition";
     private static final String tablename2 = "apikey";
     private SettingsView view;
@@ -49,11 +49,6 @@ public class Database_Helper extends SQLiteOpenHelper implements SettingsPresent
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "create table " + tablename2 + " (apikey text);";
-        db.execSQL(sql);
-        ContentValues cv = new ContentValues();
-        cv.put("apikey", "cf00b84bd688957");
-        db.insert(tablename2, null, cv);
     }
 
     public boolean insertData(String kategori, String konten, String path){
@@ -113,8 +108,7 @@ public class Database_Helper extends SQLiteOpenHelper implements SettingsPresent
         return item;
     }
 
-    @Override
-    public void getApiKey(){
+    public String getApi(){
         SQLiteDatabase database = this.getWritableDatabase();
         String sql = "select * from " + tablename2;
         Cursor cursor = database.rawQuery(sql, null);
@@ -126,7 +120,12 @@ public class Database_Helper extends SQLiteOpenHelper implements SettingsPresent
         }
         cursor.close();
         database.close();
-        view.onGetApiResult(apikey);
+        return apikey;
+    }
+
+    @Override
+    public void getApiKey(){
+        view.onGetApiResult(getApi());
     }
 
     @Override

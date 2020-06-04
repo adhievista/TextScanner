@@ -5,14 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -29,8 +27,6 @@ import com.vista.textscanner.presenter.OcrPresenter;
 import com.vista.textscanner.presenter.PermissionPresenter;
 import com.vista.textscanner.view.MainView;
 import com.vista.textscanner.view.ocrView;
-
-import java.io.File;
 
 public class Halaman_OCROnly extends AppCompatActivity implements MainView.ImageProcessing , MainView.Permission, MainView.NewOCRApi, MainView.ocrResult{
 
@@ -59,7 +55,7 @@ public class Halaman_OCROnly extends AppCompatActivity implements MainView.Image
         //inisialisasi presenter
         imagePresenter = new ImageHelper(this, this);
         permissionPresenter = new PermissionTask(this,this);
-        apiPresenter = new getResponse(this, this);
+        apiPresenter = new getResponse(this, this, data);
 
         //inisialisasi animasi loading
         customDialog = new Custom_Dialog(this, this, data);

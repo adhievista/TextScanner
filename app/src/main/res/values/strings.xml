@@ -8,4 +8,17 @@
     </string-array>
     <string name="ocr_detail_salin">Salin Teks</string>
     <string name="ocr_detail_lihat">Lihat Gambar</string>
+    <string name="ocr_settings_1">
+        <b>PERHATIAN</b>\n
+        API yang digunakan pada aplikasi ini merupakan API gratis non komersial yang
+        dapat digunakan secara bebas terbatas. Terimakasih kepada newocr.com\n\n
+
+        API pada aplikasi ini tidak harus diganti, tetapi jika ingin menggunakan
+        API milik sendiri, maka silahkan pelajari lebih lanjut di newocr.com
+    </string>
+    <string name="ocr_settings_2">
+        <b>PENGGUNAAN</b>\n
+        Masukkan API milikmu, lalu tekan apply, maka secara otomatis API yang baru
+        akan disiimpan ke dalam aplikasi, tekan reset jika API terjadi error.
+    </string>
 </resources>

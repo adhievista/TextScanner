@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.vista.textscanner.model.googlebook.Book;
+import com.vista.textscanner.model.Database_Helper;
 import com.vista.textscanner.networking.NetworkClient;
 import com.vista.textscanner.presenter.ApiPresenter;
 import com.vista.textscanner.view.MainView;
@@ -25,55 +25,52 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class getResponse extends NetworkClient implements ApiPresenter.BookRequestPresenter, ApiPresenter.NewOCRRequestPresenter {
+public class getResponse extends NetworkClient implements ApiPresenter.NewOCRRequestPresenter {
     private MainView.BookApi mainView1;
     private MainView.NewOCRApi mainViewOCR;
     private NetworkClient networkClient;
     private Activity activity;
+    private Database_Helper db;
+    private static final String NewOCRApi = "https://api.ocr.space/parse/";
 
-    public static final String NewOCRApi = "https://api.ocr.space/parse/";
-    public static final String ApiKey = "cf00b84bd688957";
 
-    public getResponse(MainView.BookApi mainView) {
-        this.mainView1 = mainView;
-        this.networkClient = new NetworkClient();
-    }
-
-    public getResponse(MainView.NewOCRApi mainViewOCR, Activity activity) {
+    public getResponse(MainView.NewOCRApi mainViewOCR, Activity activity, Database_Helper db) {
         this.mainViewOCR = mainViewOCR;
         this.activity = activity;
         this.networkClient = new NetworkClient();
+        this.db = db;
     }
 
-    @Override
-    public void RequestData(String isbn, String URL) {
-        networkClient
-                .getRetrofit(URL)
-                .getString(isbn)
-                .enqueue(new Callback<Book>() {
-                    @Override
-                    public void onResponse(Call<Book> call, Response<Book> response) {
-                        //Toast.makeText()
-                        if (response.isSuccessful()) {
-                            if (response.body() != null) {
-                                Log.i("onSuccess", response.raw().toString());
-                                mainView1.onApiRequestResult(response.body());
-                            } else {
-                                Log.i("onEmptyResponse", "Returned empty response");//Toast.makeText(getContext(),"Nothing returned",Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Book> call, Throwable t) {
-
-                    }
-                });
-    }
+//    @Override
+//    public void RequestData(String isbn, String URL) {
+//        networkClient
+//                .getRetrofit(URL)
+//                .getString(isbn)
+//                .enqueue(new Callback<Book>() {
+//                    @Override
+//                    public void onResponse(Call<Book> call, Response<Book> response) {
+//                        //Toast.makeText()
+//                        if (response.isSuccessful()) {
+//                            if (response.body() != null) {
+//                                Log.i("onSuccess", response.raw().toString());
+//                                mainView1.onApiRequestResult(response.body());
+//                            } else {
+//                                Log.i("onEmptyResponse", "Returned empty response");//Toast.makeText(getContext(),"Nothing returned",Toast.LENGTH_LONG).show();
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Book> call, Throwable t) {
+//
+//                    }
+//                });
+//    }
 
     @Override
     public void doOCR(Bitmap bitmap) {
         AsyncTask.execute(() -> {
+            String sapikey = db.getApi();
             Log.i("onSuccess", "Masuk");
             File file = new File(activity.getCacheDir(), "tempImg.jpg");
             try {
@@ -88,7 +85,7 @@ public class getResponse extends NetworkClient implements ApiPresenter.BookReque
                 // MultipartBody.Part is used to send also the actual file name
                 MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
                 // add another part within the multipart request
-                RequestBody apikey = RequestBody.create(MediaType.parse("multipart/form-data"), "cf00b84bd688957");
+                RequestBody apikey = RequestBody.create(MediaType.parse("multipart/form-data"), sapikey);
 
 
                 networkClient

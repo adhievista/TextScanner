@@ -30,8 +30,10 @@ public class Halaman_Menu extends AppCompatActivity {
             startActivity(intent);
         });
 
-
-
+        binding.ButtonTiga.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Halaman_Settings.class);
+            startActivity(intent);
+        });
 
     }
 }

@@ -7,19 +7,27 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
+import com.vista.textscanner.presenter.SettingsPresenter;
+import com.vista.textscanner.view.SettingsView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Database_Helper extends SQLiteOpenHelper {
+public class Database_Helper extends SQLiteOpenHelper implements SettingsPresenter {
     private static final String dbname = "textscanner.db";
-    private static final int version = 1;
+    private static final int version = 2;
     private static final String tablename = "recognition";
+    private static final String tablename2 = "apikey";
+    private SettingsView view;
 
     public Database_Helper(Context context) {
         super(context, dbname, null, version);
+    }
+
+    public Database_Helper(Context context, SettingsView view) {
+        super(context, dbname, null, version);
+        this.view = view;
     }
 
     @Override
@@ -31,11 +39,21 @@ public class Database_Helper extends SQLiteOpenHelper {
                 "imagepath text, " +
                 "thumbpath text);";
         db.execSQL(sql);
+
+        sql = "create table " + tablename2 + " (apikey text);";
+        db.execSQL(sql);
+        ContentValues cv = new ContentValues();
+        cv.put("apikey", "cf00b84bd688957");
+        db.insert(tablename2, null, cv);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        String sql = "create table " + tablename2 + " (apikey text);";
+        db.execSQL(sql);
+        ContentValues cv = new ContentValues();
+        cv.put("apikey", "cf00b84bd688957");
+        db.insert(tablename2, null, cv);
     }
 
     public boolean insertData(String kategori, String konten, String path){
@@ -93,5 +111,36 @@ public class Database_Helper extends SQLiteOpenHelper {
         cursor.close();
         database.close();
         return item;
+    }
+
+    @Override
+    public void getApiKey(){
+        SQLiteDatabase database = this.getWritableDatabase();
+        String sql = "select * from " + tablename2;
+        Cursor cursor = database.rawQuery(sql, null);
+        String apikey = "";
+        if (cursor.moveToFirst()) {
+            do {
+                apikey = cursor.getString(0);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        view.onGetApiResult(apikey);
+    }
+
+    @Override
+    public void updateApiKey(String newapi){
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("apikey", newapi);
+        long hasil = database.update(tablename2,  cv, null, null);
+        if (hasil == -1) {
+            Log.d("insert", "update status gagal");
+            view.onUpdateApiResult("update status gagal", newapi);
+        } else {
+            Log.d("insert", "update status sukses");
+            view.onUpdateApiResult("update status sukses", newapi);
+        }
     }
 }

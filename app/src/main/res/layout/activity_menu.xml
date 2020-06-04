@@ -9,9 +9,9 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="20dp"
         android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="50dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginBottom="20dp"
                     android:background="@android:color/darker_gray"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -118,7 +118,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="50dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginBottom="20dp"
                     android:background="@android:color/darker_gray"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -154,13 +154,61 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginTop="10dp"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            tools:srcCompat="@tools:sample/backgrounds/scenic" >
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/Button_Empat"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="80dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/apicloud" />
+
+                <RelativeLayout
+                    android:id="@+id/relativelayout3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@android:color/darker_gray"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView4"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/Judul3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text="Setting"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/Subjudul3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/Judul3"
+                        android:layout_centerHorizontal="true"
+                        android:text="Atur URL API"
+                        android:textAlignment="center"
+                        android:textStyle="italic" />
+                </RelativeLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

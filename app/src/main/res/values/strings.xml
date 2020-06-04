@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TextScanner</string>
+    <string-array name="spinnerItems">
+        <item>Tidak Dikategori</item>
+        <item>Sekolah</item>
+        <item>Rumah</item>
+        <item>Pekerjaan</item>
+    </string-array>
+    <string name="ocr_detail_salin">Salin Teks</string>
+    <string name="ocr_detail_lihat">Lihat Gambar</string>
+</resources>

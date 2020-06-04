@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="Kategori1">#5E84EF</color>
+    <color name="Kategori2">#5EEF9F</color>
+    <color name="Kategori3">#D6D650</color>
+    <color name="Kategori4">#E6765D</color>
+    <color name="normal_item">#FFFFFF</color>
+</resources>
